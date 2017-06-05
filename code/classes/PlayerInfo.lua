@@ -21,7 +21,15 @@ function cPlayerInfo.new(a_Player)
 	if (self.m_IslandNumber ~= -1) then -- Load island file
 		GetIslandInfo(self.m_IslandNumber)
 	end
+
+	-- Create challenge window
+	self.m_ChallengeWindow = cChallengeWindow.new(self)
+
 	return self
+end
+
+function cPlayerInfo:HandleChallengeWindow(a_Player, a_Window, a_ClickedItem, a_ClickAction, a_SlotNum)
+	return self.m_ChallengeWindow:HandleClick(a_Player, a_Window, a_ClickedItem, a_ClickAction, a_SlotNum)
 end
 
 -- Check if player has completed the challenge

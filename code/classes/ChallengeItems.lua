@@ -14,14 +14,14 @@ function cChallengeItems:IsCompleted(a_Player)
 	local playerInfo = GetPlayerInfo(a_Player)
 
 	if (not self:HasRequirements(a_Player)) then
-		return
+		return false
 	end
 
 	if (playerInfo.m_CompletedChallenges[self.m_LevelName][self.m_ChallengeName]) then
 		for i = 1, #self.m_RptRequiredItems do
 			if (not a_Player:GetInventory():HasItems(self.m_RptRequiredItems[i])) then
 				a_Player:SendMessageInfo(GetLanguage(a_Player):Get(2, 4, "notRequiredItems"))
-				return
+				return false
 			end
 		end
 
@@ -30,13 +30,13 @@ function cChallengeItems:IsCompleted(a_Player)
 		end
 
 		self:Complete(a_Player)
-		return
+		return false
 	end
 
 	for i = 1, #self.m_RequiredItems do
 		if (not a_Player:GetInventory():HasItems(self.m_RequiredItems[i])) then
 			a_Player:SendMessageInfo(GetLanguage(a_Player):Get(2, 4, "notRequiredItems"))
-			return
+			return false
 		end
 	end
 
@@ -45,6 +45,7 @@ function cChallengeItems:IsCompleted(a_Player)
 	end
 
 	self:Complete(a_Player)
+	return true
 end
 
 

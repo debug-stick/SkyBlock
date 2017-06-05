@@ -60,6 +60,12 @@ function CommandChallenges(a_Split, a_Player)
 		return true
 	end
 
+	if (a_Split[2] == "inv") then
+		local playerInfo = GetPlayerInfo(a_Player)
+		playerInfo.m_ChallengeWindow:Open(a_Player)
+		return true
+	end
+
 	-- List all infos to a challenge
 	if (a_Split[2] == "info") then
 		if (#a_Split == 2) then

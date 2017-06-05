@@ -68,11 +68,11 @@ function cChallengeValues:IsCompleted(a_Player)
 
 	if (self.m_Calculations[a_Player:GetName()] ~= nil) then
 		a_Player:SendMessageInfo(GetLanguage(a_Player):Get(2, 4, "calculatingWait"))
-		return
+		return false
 	end
 
 	if (not self:HasRequirements(a_Player)) then
-		return
+		return false
 	end
 
 	local posX, posZ = GetIslandPosition(playerInfo.m_IslandNumber)
@@ -84,6 +84,7 @@ function cChallengeValues:IsCompleted(a_Player)
 
 	a_Player:SendMessageInfo(GetLanguage(a_Player):Get(2, 4, "calculatingStarted"))
 	self:CalculateValue(a_Player)
+	return false
 end
 
 

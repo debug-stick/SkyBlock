@@ -45,7 +45,7 @@ function cChallengeInfo:Complete(a_Player)
 		end
 
 		a_Player:SendMessageSuccess(GetLanguage(a_Player):Get(2, 4, "repeated", { ["%1"] = self.m_ChallengeName}))
-		return
+		return true
 	end
 
 	for i = 1, #self.m_RewardItems do
@@ -62,7 +62,7 @@ function cChallengeInfo:Complete(a_Player)
 		if (isLevel == #LEVELS) then
 			a_Player:SendMessageSuccess(GetLanguage(a_Player):Get(2, 4, "allLevels"))
 			playerInfo:Save()
-			return
+			return true
 		end
 
 		playerInfo.m_IsLevel = LEVELS[isLevel + 1].m_LevelName
@@ -70,6 +70,7 @@ function cChallengeInfo:Complete(a_Player)
 		a_Player:SendMessageSuccess(GetLanguage(a_Player):Get(2, 4, "nextLevel", { ["%1"] = LEVELS[isLevel + 1].m_LevelName}))
 	end
 	playerInfo:Save()
+	return true
 end
 
 
@@ -136,9 +137,11 @@ function LoadBasicInfos(a_ChallengeName, a_LevelIni, a_LevelName)
 	challengeInfo.m_ChallengeName = a_ChallengeName
 	challengeInfo.m_LevelName = a_LevelName
 	challengeInfo.m_Description = a_LevelIni:GetValue(a_ChallengeName, "description")
+	challengeInfo.m_DisplayItem = a_LevelIni:GetValueI(a_ChallengeName, "displayItem")
 	challengeInfo.m_RequiredText = a_LevelIni:GetValue(a_ChallengeName, "requiredText")
 	challengeInfo.m_RewardText = a_LevelIni:GetValue(a_ChallengeName, "rewardText")
 	challengeInfo.m_RewardItems = ParseStringToItems(a_LevelIni:GetValue(a_ChallengeName, "rewardItems"))
+	challengeInfo.m_RewardXP = a_LevelIni:GetValueI(a_ChallengeName, "rewardXP")
 
 	-- Check if challenge is repeatable.
 	local repeatable = a_LevelIni:GetValueB(a_ChallengeName, "repeatable")
@@ -151,5 +154,6 @@ function LoadBasicInfos(a_ChallengeName, a_LevelIni, a_LevelName)
 	challengeInfo.m_RptRequiredText = a_LevelIni:GetValue(a_ChallengeName, "rpt_requiredText")
 	challengeInfo.m_RptRewardText = a_LevelIni:GetValue(a_ChallengeName, "rpt_rewardText")
 	challengeInfo.m_RptRewardItems = ParseStringToItems(a_LevelIni:GetValue(a_ChallengeName, "rpt_rewardItems"))
+	challengeInfo.m_RptRewardXP = a_LevelIni:GetValueI(a_ChallengeName, "rpt_rewardXP")
 	return challengeInfo
 end

@@ -198,3 +198,8 @@ function OnTakeDamage(a_Receiver, a_TDI)
 		end
 	end
 end
+
+function OnWindowClicking(a_Player, a_Window, a_ClickedItem, a_ClickAction, a_SlotNum)
+	local playerInfo = GetPlayerInfo(a_Player)
+	return playerInfo:HandleChallengeWindow(a_Player, a_Window, a_ClickedItem, a_ClickAction, a_SlotNum)
+end
